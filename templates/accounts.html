@@ -1,0 +1,21 @@
+{% extends "base.html" %}{% block title %}Accounts{% endblock %}
+{% block content %}
+<div class="heading-row">
+  <h1>Your accounts</h1>
+  <a class="button primary" href="{{ url_for('transfer') }}">Transfer money</a>
+</div>
+<div class="grid">
+  {% for a in accounts %}
+  <a class="card account" href="{{ url_for('history', account_no=a.account_no) }}">
+    <div class="acct-type">{{ a.account_type|title }}</div>
+    <div class="acct-no">{{ a.account_no|mask }}</div>
+    <div class="balance">{{ a.available_balance|money }}</div>
+    <div class="muted small">Available balance{% if a.status != 'ACTIVE' %} · <span class="bad">{{ a.status }}</span>{% endif %}</div>
+    <div class="small link-text">View history →</div>
+  </a>
+  {% else %}
+  <p>You have no accounts.</p>
+  {% endfor %}
+</div>
+<p class="muted">Total across accounts: <strong>{{ total|money }}</strong></p>
+{% endblock %}

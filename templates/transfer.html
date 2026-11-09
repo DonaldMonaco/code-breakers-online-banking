@@ -1,0 +1,30 @@
+{% extends "base.html" %}{% block title %}Transfer{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>Transfer between your accounts</h1>
+  {% if accounts|length < 2 %}
+    <p>You need at least two active accounts to make a transfer.</p>
+    <a class="button" href="{{ url_for('accounts') }}">Back to accounts</a>
+  {% else %}
+  <form method="post">
+    <input type="hidden" name="csrf" value="{{ csrf_token }}">
+    <label>From
+      <select name="source" required>
+        <option value="">Choose an account</option>
+        {% for a in accounts %}<option value="{{ a.account_no }}" {{ 'selected' if form.source == a.account_no }}>{{ a.account_type|title }} {{ a.account_no|mask }} · {{ a.available_balance|money }}</option>{% endfor %}
+      </select>
+    </label>
+    <label>To
+      <select name="dest" required>
+        <option value="">Choose an account</option>
+        {% for a in accounts %}<option value="{{ a.account_no }}" {{ 'selected' if form.dest == a.account_no }}>{{ a.account_type|title }} {{ a.account_no|mask }} · {{ a.available_balance|money }}</option>{% endfor %}
+      </select>
+    </label>
+    <label>Amount (USD)
+      <input name="amount" inputmode="decimal" placeholder="0.00" value="{{ form.amount }}" required>
+    </label>
+    <button type="submit" class="primary">Review transfer</button>
+  </form>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block title %}Transfer lookup{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>Look up a transfer</h1>
+  <form method="post">
+    <input type="hidden" name="csrf" value="{{ csrf_token }}">
+    <label>Reference number <input name="reference_no" value="{{ ref }}" placeholder="TRF000001" required autofocus></label>
+    <label>Reason for lookup <input name="reason" value="{{ reason }}" maxlength="200" placeholder="e.g. Customer called about this transfer" required></label>
+    <button type="submit" class="primary">Search</button>
+  </form>
+  <p class="muted small">Every lookup is saved with your name, the time and the reason (audit trail).</p>
+</section>
+{% endblock %}

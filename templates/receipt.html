@@ -1,0 +1,20 @@
+{% extends "base.html" %}{% block title %}Receipt{% endblock %}
+{% block content %}
+<section class="card narrow receipt">
+  <div class="check">✓</div>
+  <h1>Transfer {{ t.status|lower }}</h1>
+  <dl class="summary">
+    <dt>Reference number</dt><dd><code>{{ t.reference_no }}</code></dd>
+    <dt>Amount</dt><dd class="big">{{ t.amount|money }}</dd>
+    <dt>From</dt><dd>{{ t.src_type|title }} {{ t.source_acct_no|mask }}</dd>
+    <dt>To</dt><dd>{{ t.dst_type|title }} {{ t.dest_acct_no|mask }}</dd>
+    <dt>Date</dt><dd>{{ (t.completed_at or t.created_at).strftime('%b %d, %Y %I:%M %p') }}</dd>
+    <dt>{{ t.src_type|title }} balance now</dt><dd>{{ t.src_balance|money }}</dd>
+    <dt>{{ t.dst_type|title }} balance now</dt><dd>{{ t.dst_balance|money }}</dd>
+  </dl>
+  <div class="actions">
+    <button type="button" onclick="window.print()">Print receipt</button>
+    <a class="button primary" href="{{ url_for('accounts') }}">Back to accounts</a>
+  </div>
+</section>
+{% endblock %}

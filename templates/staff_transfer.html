@@ -1,0 +1,27 @@
+{% extends "base.html" %}{% block title %}{{ t.reference_no }}{% endblock %}
+{% block content %}
+<p class="small"><a href="{{ url_for('staff_search') }}">← New lookup</a></p>
+<section class="card">
+  <h1>Transfer {{ t.reference_no }}</h1>
+  <dl class="summary">
+    <dt>Customer</dt><dd>{{ t.customer }}</dd>
+    <dt>Amount</dt><dd class="big">{{ t.amount|money }}</dd>
+    <dt>Status</dt><dd>{{ t.status }}</dd>
+    <dt>From</dt><dd>{{ t.source_acct_no|mask }}</dd>
+    <dt>To</dt><dd>{{ t.dest_acct_no|mask }}</dd>
+    <dt>Requested</dt><dd>{{ t.created_at.strftime('%b %d, %Y %I:%M %p') }}</dd>
+    <dt>Completed</dt><dd>{{ t.completed_at.strftime('%b %d, %Y %I:%M %p') if t.completed_at else '—' }}</dd>
+  </dl>
+</section>
+<section class="card table-card">
+  <h2>Access log for this transfer</h2>
+  <table>
+    <thead><tr><th>When</th><th>Staff member</th><th>Reason</th></tr></thead>
+    <tbody>
+    {% for r in reviews %}
+      <tr><td>{{ r.reviewed_at.strftime('%b %d, %Y %I:%M %p') }}</td><td>{{ r.staff_name }}</td><td>{{ r.reason or '' }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

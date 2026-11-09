@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Online Banking{% endblock %} · Code Breakers Bank</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap bar">
+    <a class="brand" href="{{ url_for('accounts') if role == 'customer' else (url_for('staff_search') if role == 'staff' else url_for('login')) }}">
+      <span class="logo">CB</span> Code Breakers Bank{% if role == 'staff' %} <span class="tag">Staff</span>{% endif %}
+    </a>
+    {% if role %}
+    <nav>
+      {% if role == 'customer' %}
+        <a href="{{ url_for('accounts') }}">Accounts</a>
+        <a href="{{ url_for('transfer') }}">Transfer</a>
+      {% else %}
+        <a href="{{ url_for('staff_search') }}">Transfer lookup</a>
+      {% endif %}
+      <span class="who">Hi, {{ who }}</span>
+      <form method="post" action="{{ url_for('logout') }}" class="inline">
+        <input type="hidden" name="csrf" value="{{ csrf_token }}">
+        <button class="link">Sign out</button>
+      </form>
+    </nav>
+    {% endif %}
+  </div>
+</header>
+<main class="wrap">
+  {% with msgs = get_flashed_messages(with_categories=true) %}
+    {% for cat, m in msgs %}<div class="alert {{ cat }}" role="alert">{{ m }}</div>{% endfor %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+<footer class="wrap foot">CSC 430 · Team Code Breakers · Demo application for the online_banking database</footer>
+<script>
+  // F7: disable submit buttons after the first click so a form is only sent once
+  document.querySelectorAll('form.once').forEach(f => f.addEventListener('submit', () => {
+    f.querySelectorAll('button[type=submit]').forEach(b => { b.disabled = true; b.textContent = 'Please wait…'; });
+  }));
+</script>
+</body>
+</html>

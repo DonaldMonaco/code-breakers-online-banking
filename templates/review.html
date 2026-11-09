@@ -1,0 +1,20 @@
+{% extends "base.html" %}{% block title %}Review transfer{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>Review your transfer</h1>
+  <dl class="summary">
+    <dt>From</dt><dd>{{ src.account_type|title }} {{ src.account_no|mask }}</dd>
+    <dt>To</dt><dd>{{ dst.account_type|title }} {{ dst.account_no|mask }}</dd>
+    <dt>Amount</dt><dd class="big">{{ amount|money }}</dd>
+    <dt>{{ src.account_type|title }} after</dt><dd>{{ src_after|money }}</dd>
+    <dt>{{ dst.account_type|title }} after</dt><dd>{{ dst_after|money }}</dd>
+  </dl>
+  <p class="muted small">Money moves right away when you confirm. Nothing changes until then.</p>
+  <form method="post" action="{{ url_for('confirm') }}" class="once actions">
+    <input type="hidden" name="csrf" value="{{ csrf_token }}">
+    <input type="hidden" name="request_id" value="{{ p.request_id }}">
+    <a class="button" href="{{ url_for('transfer') }}">Edit</a>
+    <button type="submit" class="primary">Confirm transfer</button>
+  </form>
+</section>
+{% endblock %}

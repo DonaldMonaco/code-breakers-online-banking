@@ -1,0 +1,30 @@
+{% extends "base.html" %}{% block title %}History{% endblock %}
+{% block content %}
+<p class="small"><a href="{{ url_for('accounts') }}">← Accounts</a></p>
+<div class="heading-row">
+  <h1>{{ acct.account_type|title }} {{ acct.account_no|mask }}</h1>
+  <div class="balance-sm">{{ acct.available_balance|money }} <span class="muted small">available</span></div>
+</div>
+<form method="get" class="filters card">
+  <label>From <input type="date" name="start" value="{{ start }}"></label>
+  <label>To <input type="date" name="end" value="{{ end }}"></label>
+  <button type="submit">Show</button>
+</form>
+<div class="card table-card">
+<table>
+  <thead><tr><th>Date</th><th>Description</th><th class="num">Amount</th><th class="num">Balance</th></tr></thead>
+  <tbody>
+  {% for r in rows %}
+    <tr>
+      <td>{{ r.posted_at.strftime('%b %d, %Y %I:%M %p') }}</td>
+      <td>{{ r.description }}</td>
+      <td class="num {{ 'bad' if r.txn_type == 'DEBIT' else 'good' }}">{{ '−' if r.txn_type == 'DEBIT' else '+' }}{{ r.amount|money }}</td>
+      <td class="num">{{ r.balance_after|money }}</td>
+    </tr>
+  {% else %}
+    <tr><td colspan="4" class="muted">No transactions between {{ start }} and {{ end }}.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}
