@@ -1,4 +1,4 @@
-# Code Breakers Online Banking (CSC 430 Lab 4)
+# Code Breakers Online Banking (CSC 430 Midterm)
 
 A Python/Flask web app that runs on the `online_banking` MySQL database.
 
