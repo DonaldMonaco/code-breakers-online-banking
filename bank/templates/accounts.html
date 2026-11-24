@@ -2,11 +2,11 @@
 {% block content %}
 <div class="heading-row">
   <h1>Your accounts</h1>
-  <a class="button primary" href="{{ url_for('transfer') }}">Transfer money</a>
+  <a class="button primary" href="{{ url_for('customer.transfer') }}">Transfer money</a>
 </div>
 <div class="grid">
   {% for a in accounts %}
-  <a class="card account" href="{{ url_for('history', account_no=a.account_no) }}">
+  <a class="card account" href="{{ url_for('customer.history', account_no=a.account_no) }}">
     <div class="acct-type">{{ a.account_type|title }}</div>
     <div class="acct-no">{{ a.account_no|mask }}</div>
     <div class="balance">{{ a.available_balance|money }}</div>

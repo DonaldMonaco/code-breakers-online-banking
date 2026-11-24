@@ -1,6 +1,6 @@
 {% extends "base.html" %}{% block title %}History{% endblock %}
 {% block content %}
-<p class="small"><a href="{{ url_for('accounts') }}">← Accounts</a></p>
+<p class="small"><a href="{{ url_for('customer.accounts') }}">← Accounts</a></p>
 <div class="heading-row">
   <h1>{{ acct.account_type|title }} {{ acct.account_no|mask }}</h1>
   <div class="balance-sm">{{ acct.available_balance|money }} <span class="muted small">available</span></div>

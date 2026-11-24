@@ -4,7 +4,7 @@
   <h1>Transfer between your accounts</h1>
   {% if accounts|length < 2 %}
     <p>You need at least two active accounts to make a transfer.</p>
-    <a class="button" href="{{ url_for('accounts') }}">Back to accounts</a>
+    <a class="button" href="{{ url_for('customer.accounts') }}">Back to accounts</a>
   {% else %}
   <form method="post">
     <input type="hidden" name="csrf" value="{{ csrf_token }}">

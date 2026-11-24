@@ -10,10 +10,10 @@
     <dt>{{ dst.account_type|title }} after</dt><dd>{{ dst_after|money }}</dd>
   </dl>
   <p class="muted small">Money moves right away when you confirm. Nothing changes until then.</p>
-  <form method="post" action="{{ url_for('confirm') }}" class="once actions">
+  <form method="post" action="{{ url_for('customer.confirm') }}" class="once actions">
     <input type="hidden" name="csrf" value="{{ csrf_token }}">
     <input type="hidden" name="request_id" value="{{ p.request_id }}">
-    <a class="button" href="{{ url_for('transfer') }}">Edit</a>
+    <a class="button" href="{{ url_for('customer.transfer') }}">Edit</a>
     <button type="submit" class="primary">Confirm transfer</button>
   </form>
 </section>

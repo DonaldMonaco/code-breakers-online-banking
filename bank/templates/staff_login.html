@@ -8,6 +8,6 @@
     <label>Password <input name="password" type="password" autocomplete="current-password" required></label>
     <button type="submit" class="primary">Sign in</button>
   </form>
-  <p class="muted small">Staff can look up transfers but cannot move money. <a href="{{ url_for('login') }}">Customer sign-in</a></p>
+  <p class="muted small">Staff can look up transfers but cannot move money. <a href="{{ url_for('auth.login') }}">Customer sign-in</a></p>
 </section>
 {% endblock %}

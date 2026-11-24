@@ -9,19 +9,19 @@
 <body>
 <header class="topbar">
   <div class="wrap bar">
-    <a class="brand" href="{{ url_for('accounts') if role == 'customer' else (url_for('staff_search') if role == 'staff' else url_for('login')) }}">
+    <a class="brand" href="{{ url_for('customer.accounts') if role == 'customer' else (url_for('staff.staff_search') if role == 'staff' else url_for('auth.login')) }}">
       <span class="logo">CB</span> Code Breakers Bank{% if role == 'staff' %} <span class="tag">Staff</span>{% endif %}
     </a>
     {% if role %}
     <nav>
       {% if role == 'customer' %}
-        <a href="{{ url_for('accounts') }}">Accounts</a>
-        <a href="{{ url_for('transfer') }}">Transfer</a>
+        <a href="{{ url_for('customer.accounts') }}">Accounts</a>
+        <a href="{{ url_for('customer.transfer') }}">Transfer</a>
       {% else %}
-        <a href="{{ url_for('staff_search') }}">Transfer lookup</a>
+        <a href="{{ url_for('staff.staff_search') }}">Transfer lookup</a>
       {% endif %}
       <span class="who">Hi, {{ who }}</span>
-      <form method="post" action="{{ url_for('logout') }}" class="inline">
+      <form method="post" action="{{ url_for('auth.logout') }}" class="inline">
         <input type="hidden" name="csrf" value="{{ csrf_token }}">
         <button class="link">Sign out</button>
       </form>

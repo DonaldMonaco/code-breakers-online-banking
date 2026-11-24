@@ -9,6 +9,6 @@
     <label>Code <input name="code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required autofocus autocomplete="one-time-code"></label>
     <button type="submit" class="primary">Verify and sign in</button>
   </form>
-  <p class="small"><a href="{{ url_for('login') }}">Start over</a></p>
+  <p class="small"><a href="{{ url_for('auth.login') }}">Start over</a></p>
 </section>
 {% endblock %}
